@@ -57,4 +57,5 @@ RUN set -x \
  && chmod +x /usr/local/bin/docker-compose \
  && docker-compose -v
 
-CMD ["./start.sh"]
+# CMD ["./start.sh"]
+CMD ["top"]
