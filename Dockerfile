@@ -17,11 +17,6 @@ RUN apt-get update \
         libunwind8 \
         netcat
 
-WORKDIR /azp
-
-COPY ./start.sh .
-RUN chmod +x start.sh
-
 ENV DOCKER_CHANNEL stable
 ENV DOCKER_VERSION 18.06.3-ce
 
@@ -39,7 +34,12 @@ RUN set -x \
  && docker-compose -v
 
 ENV VSTS_AGENT_VERSION 2.172.2
-
+WORKDIR /azp/agent
 RUN curl -LsS "https://vstsagentpackage.azureedge.net/agent/${VSTS_AGENT_VERSION}/vsts-agent-linux-x64-${VSTS_AGENT_VERSION}.tar.gz" | tar -xz & wait $!
+
+WORKDIR /azp
+
+COPY ./start.sh .
+RUN chmod +x start.sh
 
 CMD ["./start.sh"]
