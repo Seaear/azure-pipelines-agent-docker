@@ -42,7 +42,7 @@ RUN curl -LsS "https://vstsagentpackage.azureedge.net/agent/${VSTS_AGENT_VERSION
 
 
 ENV DOCKER_CHANNEL stable
-ENV DOCKER_VERSION 19.03.8-ce
+ENV DOCKER_VERSION 18.06.3-ce
 
 RUN set -ex \
  && curl -fL "https://download.docker.com/linux/static/${DOCKER_CHANNEL}/`uname -m`/docker-${DOCKER_VERSION}.tgz" -o docker.tgz \
