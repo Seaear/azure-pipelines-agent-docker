@@ -5,19 +5,6 @@ FROM ubuntu:18.04
 ENV DEBIAN_FRONTEND=noninteractive
 RUN echo "APT::Get::Assume-Yes \"true\";" > /etc/apt/apt.conf.d/90assumeyes
 
-RUN echo "\
-deb http://mirrors.aliyun.com/ubuntu/ bionic main restricted universe multiverse\n\
-deb-src http://mirrors.aliyun.com/ubuntu/ bionic main restricted universe multiverse\n\
-deb http://mirrors.aliyun.com/ubuntu/ bionic-security main restricted universe multiverse\n\
-deb-src http://mirrors.aliyun.com/ubuntu/ bionic-security main restricted universe multiverse\n\
-deb http://mirrors.aliyun.com/ubuntu/ bionic-updates main restricted universe multiverse\n\
-deb-src http://mirrors.aliyun.com/ubuntu/ bionic-updates main restricted universe multiverse\n\
-deb http://mirrors.aliyun.com/ubuntu/ bionic-proposed main restricted universe multiverse\n\
-deb-src http://mirrors.aliyun.com/ubuntu/ bionic-proposed main restricted universe multiverse\n\
-deb http://mirrors.aliyun.com/ubuntu/ bionic-backports main restricted universe multiverse\n\
-deb-src http://mirrors.aliyun.com/ubuntu/ bionic-backports main restricted universe multiverse\n\
-" > /etc/apt/sources.list
-
 RUN apt-get update \
 && apt-get install -y --no-install-recommends \
         ca-certificates \
@@ -35,12 +22,6 @@ WORKDIR /azp
 COPY ./start.sh .
 RUN chmod +x start.sh
 
-ENV VSTS_AGENT_VERSION 2.172.2
-
-# RUN curl -LsS "https://github.com/Microsoft/vsts-agent/releases/download/v${VSTS_AGENT_VERSION}/vsts-agent-linux-x64-${VSTS_AGENT_VERSION}.tar.gz" | tar -xz & wait $!
-RUN curl -LsS "https://vstsagentpackage.azureedge.net/agent/${VSTS_AGENT_VERSION}/vsts-agent-linux-x64-${VSTS_AGENT_VERSION}.tar.gz" | tar -xz & wait $!
-
-
 ENV DOCKER_CHANNEL stable
 ENV DOCKER_VERSION 18.06.3-ce
 
@@ -57,5 +38,8 @@ RUN set -x \
  && chmod +x /usr/local/bin/docker-compose \
  && docker-compose -v
 
-# CMD ["./start.sh"]
-CMD ["top"]
+ENV VSTS_AGENT_VERSION 2.172.2
+
+RUN curl -LsS "https://vstsagentpackage.azureedge.net/agent/${VSTS_AGENT_VERSION}/vsts-agent-linux-x64-${VSTS_AGENT_VERSION}.tar.gz" | tar -xz & wait $!
+
+CMD ["./start.sh"]
