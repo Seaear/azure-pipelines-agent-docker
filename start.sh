@@ -25,9 +25,8 @@ fi
 # rm -rf /azp/agent
 # mkdir /azp/agent
 cd /azp/agent
-cleanup
 
-export AGENT_ALLOW_RUNASROOT="1"
+export AGENT_ALLOW_RUNASROOT="0"
 
 cleanup() {
   if [ -e config.sh ]; then
@@ -70,6 +69,7 @@ export VSO_AGENT_IGNORE=AZP_TOKEN,AZP_TOKEN_FILE
 # curl -LsS $AZP_AGENTPACKAGE_URL | tar -xz & wait $!
 
 source ./env.sh
+cleanup
 
 trap 'cleanup; exit 130' INT
 trap 'cleanup; exit 143' TERM
