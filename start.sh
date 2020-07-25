@@ -25,6 +25,7 @@ fi
 # rm -rf /azp/agent
 # mkdir /azp/agent
 cd /azp/agent
+cleanup
 
 export AGENT_ALLOW_RUNASROOT="1"
 
