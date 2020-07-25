@@ -26,7 +26,7 @@ fi
 # mkdir /azp/agent
 cd /azp/agent
 
-export AGENT_ALLOW_RUNASROOT="0"
+export AGENT_ALLOW_RUNASROOT="1"
 
 cleanup() {
   if [ -e config.sh ]; then
@@ -69,10 +69,11 @@ export VSO_AGENT_IGNORE=AZP_TOKEN,AZP_TOKEN_FILE
 # curl -LsS $AZP_AGENTPACKAGE_URL | tar -xz & wait $!
 
 source ./env.sh
+export AGENT_ALLOW_RUNASROOT="0"
 cleanup
-
 trap 'cleanup; exit 130' INT
 trap 'cleanup; exit 143' TERM
+export AGENT_ALLOW_RUNASROOT="1"
 
 print_header "3. Configuring Azure Pipelines agent..."
 
