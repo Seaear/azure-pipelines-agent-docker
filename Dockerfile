@@ -33,7 +33,7 @@ RUN set -x \
  && chmod +x /usr/local/bin/docker-compose \
  && docker-compose -v
 
-ENV VSTS_AGENT_VERSION 2.172.2
+ENV VSTS_AGENT_VERSION 2.174.3
 WORKDIR /azp/agent
 RUN curl -LsS "https://vstsagentpackage.azureedge.net/agent/${VSTS_AGENT_VERSION}/vsts-agent-linux-x64-${VSTS_AGENT_VERSION}.tar.gz" | tar -xz & wait $!
 
