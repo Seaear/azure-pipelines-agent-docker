@@ -3,7 +3,7 @@ FROM ubuntu:20.04
 # To make it easier for build and release pipelines to run apt-get,
 # configure apt to not require confirmation (assume the -y argument by default)
 ENV DEBIAN_FRONTEND=noninteractive
-ENV DOCKER_COMPOSE_VERSION v2.11.2
+ENV DOCKER_COMPOSE_VERSION 1.29.2
 ENV VSTS_AGENT_VERSION 2.211.0
 # Can be 'linux-x64', 'linux-arm64', 'linux-arm', 'rhel.6-x64'.
 ENV TARGETARCH=linux-x64
